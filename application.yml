@@ -77,13 +77,16 @@ chaos:
 
 ---
 spring:
-  config:
-    activate:
-      on-profile: mysql
+  profiles: 
+    - mysql
+    - docker
   datasource:
-    url: jdbc:mysql://3306:3306/petclinic?useSSL=false
+    schema: classpath*:db/mysql/schema.sql
+    data: classpath*:db/mysql/data.sql
+    url: jdbc:mysql://mysql-db:3306/petclinic?useSSL=false
     username: root
     password: petclinic
+    initialization-mode: ALWAYS
   sql:
     init:
       schema-locations: classpath*:db/mysql/schema.sql
